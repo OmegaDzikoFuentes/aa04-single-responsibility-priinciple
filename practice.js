@@ -1,4 +1,4 @@
-/******************************** CONSTANTS *********************************/ 
+/******************************** CONSTANTS *********************************/
 const applePieRecipe = [
   { name: "pie crust", cost: 10.00, quantity: 1 },
   { name: "sugar", cost: 3.00, quantity: 0.5 },
@@ -32,8 +32,8 @@ const recipes = {
 };
 /* DO NOT CHANGE THE CODE ABOVE */
 
-/*************************** FUNCTION TO REFACTOR ****************************/ 
-function bakeAndSellPies(pieType, pieQuantity, profitMargin) {
+/*************************** FUNCTION TO REFACTOR ****************************/
+/*function bakeAndSellPies(pieType, pieQuantity, profitMargin) {
   // Find the recipe for the pieType specified
   const recipe = recipes[pieType];
   // Bake the number of pies specified by the pieQuantity
@@ -59,7 +59,50 @@ function bakeAndSellPies(pieType, pieQuantity, profitMargin) {
   // Print the total revenue calculated using the given profitMargin
   const revenue = totalCost * (profitMargin || 1.2);
   console.log(`Sold ${pieQuantity} pies for $${revenue.toFixed(2)}!`);
+}*/
+
+
+combineMessage = (pieType, recipe) => {
+  return `Combining ingredients for ${pieType}: ${recipe.map(ingredient => ingredient.name).join(', ')}`
+};
+
+bakePies = (pieQuantity) => {
+
+  for (let i = 0; i < pieQuantity; i++) {
+    console.log(`Baked pie ${i + 1}!`);
+  }
+};
+
+calculateCost = (recipe, pieQuantity) => {
+  const costOfPie = recipe.reduce((prev, current) => prev + current.cost, 0);
+  console.log(`Cost per pie: $${(costOfPie / recipe.length).toFixed(2)}`);
+  return costOfPie * pieQuantity;
+};
+
+calculateRevenue = (totalCost, profitMargin = 1.2) => {
+  const revenue = totalCost * profitMargin;
+  console.log(`Total revenue: $${revenue.toFixed(2)}`);
+  return revenue;
 }
+
+bakeAndSellPies = (pieType, pieQuantity, profitMargin) => {
+
+  const recipe = recipes[pieType];
+
+  console.log(combineMessage(pieType, recipe));
+
+  bakePies(pieQuantity);
+
+  const totalCost = calculateCost(recipe, pieQuantity);
+
+  const revenue = calculateRevenue(totalCost, profitMargin = 1.2);
+
+  console.log(`Sold ${pieQuantity} ${pieType} pies for $${revenue.toFixed(2)}!`);
+
+}
+
+
+
 
 /******************************* LOCAL TESTS *******************************/
 // bakeAndSellPies("applePie", 5, 2.5);
